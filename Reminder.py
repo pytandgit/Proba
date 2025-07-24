@@ -5,25 +5,23 @@ import datetime
 import time
 import pygame
 
-t = 0
+t = None
 music = False
+
+
 def set():
     global t
-    rem = sd.askstring('Время напоминания', 'Введите время напоминания в формате ЧЧ:ММ (в 24 часовом формате)')
+    rem = sd.askstring("Время напоминания", "Введите время в формате ЧЧ:ММ (24-часовой формат)")
     if rem:
         try:
-            hour = int(rem.split(':')[0])
-            minute = int(rem.split(':')[1])
+            hour = int(rem.split(":")[0])
+            minute = int(rem.split(":")[1])
             now = datetime.datetime.now()
-            print(now)
-            dt = now.replace(hour=hour, minute=minute, second=0)
-            print(dt)
+            dt = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
             t = dt.timestamp()
-            text = sd.askstring('Текст напоминания', 'Введите текст напоминания')
-            label.config(text=f'Напоминание на {hour:02}:{minute:02} с текстом {text}')
-            print(t)
-        except Exception as e:
-            mb.showerror('Ошибка!', f'Произошла ошибка {e}')
+            label.config(text=f"Напоминание установлено на: {hour:02}:{minute:02}")
+        except ValueError:
+            mb.showerror("Ошибка", "Неверный формат времени")
 
 
 def check():
@@ -32,7 +30,7 @@ def check():
         now = time.time()
         if now >= t:
             play_snd()
-            t = 0
+            t = None
     window.after(10000, check)
 
 
