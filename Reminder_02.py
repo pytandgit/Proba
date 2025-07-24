@@ -14,7 +14,7 @@ def validate(rem):
         if rem:
             hour = int(rem.split(':')[0])
             minute = int(rem.split(':')[1])
-            if len(rem.split(':')) == 4 and 0 <= hour < 24 and 0 <= minute < 60:
+            if len(rem.split(':')) == 2 and 0 <= hour < 24 and 0 <= minute < 60:
                 return True
             else:
                 mb.showerror('Ошибка!', f'Введите время в формате ЧЧ:ММ (24-часовой формат)')
